@@ -71,6 +71,8 @@ move_display_time = 0
 
 # Start webcam
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 while True:
     ret, frame = cap.read()
@@ -160,23 +162,23 @@ while True:
     if show_moves:
         # Create a semi-transparent overlay for moves display
         overlay = frame.copy()
-        cv2.rectangle(overlay, (w//2-200, h//2-100), (w//2+200, h//2+100), (0, 0, 0), -1)
+        cv2.rectangle(overlay, (w-450, h//2-100), (w-50, h//2+100), (0, 0, 0), -1)
         cv2.addWeighted(overlay, 0.7, frame, 0.3, 0, frame)
         
         # Display moves based on who's batting/bowling
         if turn == "player_batting":
-            cv2.putText(frame, "BATTING vs BOWLING", (w//2-180, h//2-60),
+            cv2.putText(frame, "BATTING vs BOWLING", (w-430, h//2-60),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
-            cv2.putText(frame, f"Player: {player_move}", (w//2-180, h//2-20),
+            cv2.putText(frame, f"Player: {player_move}", (w-430, h//2-20),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 3)
-            cv2.putText(frame, f"Computer: {computer_move}", (w//2-180, h//2+20),
+            cv2.putText(frame, f"Computer: {computer_move}", (w-430, h//2+20),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 255), 3)
         else:
-            cv2.putText(frame, "BOWLING vs BATTING", (w//2-180, h//2-60),
+            cv2.putText(frame, "BOWLING vs BATTING", (w-430, h//2-60),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
-            cv2.putText(frame, f"Player: {player_move}", (w//2-180, h//2-20),
+            cv2.putText(frame, f"Player: {player_move}", (w-430, h//2-20),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 255), 3)
-            cv2.putText(frame, f"Computer: {computer_move}", (w//2-180, h//2+20),
+            cv2.putText(frame, f"Computer: {computer_move}", (w-430, h//2+20),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 3)
         
         # Show result of the move
@@ -190,7 +192,7 @@ while True:
             else:
                 result_text = f"{computer_move} runs scored!"
         
-        cv2.putText(frame, result_text, (w//2-180, h//2+60),
+        cv2.putText(frame, result_text, (w-430, h//2+60),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, result_color, 3)
 
     # Show current gesture detection
